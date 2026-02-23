@@ -5,7 +5,6 @@ with **ROS2 Humble**.
 
 This does NOT install TurtleBot or any simulation packages.
 
-------------------------------------------------------------------------
 
 # 1. Install Gazebo Classic
 
@@ -31,7 +30,7 @@ Expected output example:
 
     Gazebo multi-robot simulator, version 11.x.x
 
-------------------------------------------------------------------------
+
 
 # 2. Install ROS2 Gazebo Integration
 
@@ -47,7 +46,6 @@ Install ROS2 control integration:
 sudo apt install -y ros-humble-gazebo-ros2-control
 ```
 
-------------------------------------------------------------------------
 
 # 3. Configure Gazebo Environment
 
@@ -64,7 +62,7 @@ echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-------------------------------------------------------------------------
+
 
 # 4. Verify ROS2 Integration
 
@@ -82,7 +80,7 @@ Expected packages include:
 -   gazebo_ros_pkgs
 -   gazebo_ros2_control
 
-------------------------------------------------------------------------
+
 
 # 5. Test Gazebo
 
@@ -96,7 +94,7 @@ Close Gazebo properly using:
 
     Ctrl + C
 
-------------------------------------------------------------------------
+
 
 # Setup Complete
 
