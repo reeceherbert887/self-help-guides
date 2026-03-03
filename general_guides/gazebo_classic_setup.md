@@ -112,15 +112,15 @@ colcon build
 
 Running Turtlebot3 Demo in Gazebo
 [For your personal PC with admin rights]
-Please don’t try it on the Lab PCs
+Please donï¿½t try it on the Lab PCs
 
 The objective of this task is to get you familiar with the overall picture (ROS + Gazebo
 environment) inspired by Turtlebot 3.
 
-Since, we will be using TurtleBot 3, we need to first install “TurtleBot3 Simulator”. Here are the
+Since, we will be using TurtleBot 3, we need to first install ï¿½TurtleBot3 Simulatorï¿½. Here are the
 instructions to load software packages for the TurtleBot simulator.
 
-First let us install ‘git’ command in our Ubuntu (if it is not already there):
+First let us install ï¿½gitï¿½ command in our Ubuntu (if it is not already there):
 ```
 sudo apt install git
 ```
@@ -140,7 +140,7 @@ git clone -b humble https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 
 Note: DynamixelSDK is a software development kit that provides control functions using packet
 communication (Required to work with real robot).
-Although the package ‘ros-humble-gazebo-ros-pkgs’ is pre-installed on the Robotics Lab. PCs, but just
+Although the package ï¿½ros-humble-gazebo-ros-pkgsï¿½ is pre-installed on the Robotics Lab. PCs, but just
 in case, if you need to install in your personal Ubuntu machines:
 ```
 sudo apt install ros-humble-gazebo-ros-pkgs
@@ -189,4 +189,58 @@ export TURTLEBOT3_MODEL=burger
 Save the file, close it and then source it.
 ```
 source ~/.bashrc
+```
+
+# Ease of Use
+when closing DO NOT cloes the program ctr-c
+
+If gazebo does not respond run this:
+```
+killall -9 gazebo & killall -9 gzserver & killall -9 gzclient
+```
+
+
+Key Gazebo GUI Hotkeys
+
+1. File/Simulation Control:
+```
+Ctrl+q: Quit Gazebo.
+
+
+Ctrl+o: Load a world configuration.
+
+Ctrl+r: Reset world (resets all models to original poses).
+
+Ctrl+Shift+r: Reset model poses.
+
+Space: Pause/start the physics engine.
+
+T: Start/stop stepping of the physics engine.
+
+Ctrl+d: Open log file recording dialog.
+```
+
+2. Camera and View:
+```
+[ / ]: Switch to previous/next camera.
+Tab: Show/hide the heads-up display (HUD).
+```
+        
+3. Manipulation & Editing:
+```
+Esc: Enter Selection mode (default).
+t: Enter Translate mode.
+r: Enter Rotate mode.
+Ctrl+z: Undo last action.
+Ctrl+Shift+z: Redo.
+Ctrl+m: Open Model Editor.
+x/y/z: Hold while manipulating to constrain movement to that axis.
+Ctrl+Drag: Snap models to increments (1m translate /rotate).
+```
+
+4. Miscellaneous:
+```
+Ctrl+t: Open topic visualization dialog.
+/: Open search menu for plugins.
+h: Display help. 
 ```
