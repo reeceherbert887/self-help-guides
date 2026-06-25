@@ -1,0 +1,401 @@
+# TrueNAS Backup Strategy (Version 1)
+
+**Author:** Reece Herbert
+**TrueNAS Version:** SCALE 25.10.2.1
+**Last Updated:** June 2026
+
+---
+
+# Overview
+
+Following the recovery of my TrueNAS server after an unexpected power outage, I redesigned my backup strategy to be simpler, easier to maintain, and closer to TrueNAS best practices.
+
+The goal is to keep live user data completely separate from backup data while preserving all permissions, ACLs, snapshots and dataset properties.
+
+---
+
+# Storage Layout
+
+## 1TB HDD
+
+Purpose:
+
+* TrueNAS Boot Pool
+* Future Apps Pool
+
+Planned Contents:
+
+* ix-apps
+* Home Assistant
+* Nextcloud containers
+* Docker data
+* Application configuration
+
+Status:
+
+* Planned migration.
+* Applications currently remain on the 8TB pool.
+
+---
+
+## 8TB HDD
+
+Purpose:
+
+Primary live storage.
+
+Contains:
+
+* Reece
+* Beth
+* Mandy
+* Mell
+* Media
+* Documents
+* Photos
+* Downloads
+* Future datasets
+
+This is the only pool that users access.
+
+Access Methods:
+
+* SMB Shares
+* Nextcloud External Storage
+
+---
+
+## 2TB HDD
+
+Purpose:
+
+Dedicated backup pool.
+
+Pool Name:
+
+```text
+backup-pool
+```
+
+This pool is **NOT** shared via SMB.
+
+This pool is **NOT** mounted into Nextcloud.
+
+Users do **NOT** access this pool directly.
+
+It exists solely for:
+
+* ZFS Replication
+* Disaster Recovery
+* Restoring deleted files
+* Restoring previous versions
+* Protection against accidental deletion
+
+---
+
+## 32GB USB
+
+Purpose:
+
+Emergency Recovery
+
+Contains:
+
+* TrueNAS Installer
+* Recovery scripts
+* Documentation
+
+Applications are **not** installed here.
+
+---
+
+# Backup Philosophy
+
+The backup pool should never be used as a second file server.
+
+Instead:
+
+```text
+Users
+
+↓
+
+mainpool
+
+↓
+
+Snapshots
+
+↓
+
+Replication
+
+↓
+
+backup-pool
+```
+
+The backup remains hidden from users.
+
+Only an administrator restores data from the backup.
+
+This protects the backup against:
+
+* accidental deletion
+* accidental modification
+* ransomware
+* user error
+
+---
+
+# Snapshot Configuration
+
+Dataset:
+
+```text
+mainpool
+```
+
+Recursive:
+
+```text
+Enabled
+```
+
+Schedule:
+
+* Monthly
+* 1st day of every month
+* 00:00
+
+Only one recursive snapshot task is required.
+
+Individual snapshot tasks for each user dataset are no longer necessary.
+
+---
+
+# Replication Configuration
+
+Source:
+
+```text
+mainpool
+```
+
+Destination:
+
+```text
+backup-pool
+```
+
+Recursive:
+
+Enabled
+
+This automatically replicates every child dataset including:
+
+```text
+mainpool
+├── Reece
+├── Beth
+├── Mandy
+├── Mell
+├── Media
+├── Documents
+├── Photos
+└── Downloads
+```
+
+Replication preserves:
+
+* Dataset hierarchy
+* ACLs
+* Permissions
+* Ownership
+* ZFS properties
+* Snapshots
+* File timestamps
+
+No manual recreation of datasets or permissions is required.
+
+---
+
+# Why Recursive Replication?
+
+Originally each user had their own snapshot and replication task.
+
+This required multiple jobs and duplicated configuration.
+
+The final design uses:
+
+One snapshot task
+
+↓
+
+One replication task
+
+↓
+
+Everything underneath `mainpool` is automatically included.
+
+Advantages:
+
+* Easier maintenance
+* Future datasets are automatically protected
+* Fewer scheduled tasks
+* Less chance of configuration errors
+
+---
+
+# Disaster Recovery Process
+
+If data is accidentally deleted:
+
+1. Browse snapshots.
+2. Restore the required file or folder.
+3. Users continue working normally.
+
+If the main storage fails:
+
+1. Replace failed hardware.
+2. Import or recreate storage.
+3. Restore from `backup-pool`.
+4. Verify ACLs and permissions.
+5. Resume normal operation.
+
+---
+
+# Current Status
+
+Completed:
+
+* Created `backup-pool`
+* Created one recursive snapshot task
+* Created one recursive replication task
+* Removed old per-user snapshot tasks
+* Backup strategy simplified
+
+Pending:
+
+* First replication run
+* Restore test
+* Migration of applications to dedicated apps drive
+* Replacement of temporary 2TB backup drive with an 8TB drive
+
+---
+
+# Future Improvements
+
+## Move Applications
+
+Move:
+
+* Home Assistant
+* Nextcloud
+* ix-apps
+
+to the dedicated applications drive.
+
+---
+
+## Replace Backup Drive
+
+Current:
+
+```text
+8TB
+
+↓
+
+2TB Backup
+```
+
+Future:
+
+```text
+8TB
+
+↓
+
+8TB Backup
+```
+
+The replication configuration can remain unchanged.
+
+---
+
+## TrueNAS Configuration Backup
+
+After significant configuration changes:
+
+Download the TrueNAS configuration database.
+
+Store copies:
+
+* PC
+* External USB
+* Secondary backup location
+
+---
+
+## Home Assistant
+
+Create regular full backups.
+
+Store copies outside Home Assistant.
+
+---
+
+## Backup Verification
+
+Backups are only considered valid after a successful restore test.
+
+Recommended:
+
+* Restore a deleted file.
+* Restore an older file version.
+* Verify permissions after restoration.
+
+---
+
+# Lessons Learned
+
+Following the power outage:
+
+* Data remained intact.
+* ZFS snapshots proved extremely valuable.
+* Nextcloud required repair.
+* SMB ACLs required repair.
+* Home Assistant recovered successfully.
+
+Future maintenance should always follow this process:
+
+1. Create snapshot.
+2. Run replication.
+3. Verify backup completion.
+4. Perform maintenance.
+
+This ensures a recoverable restore point always exists before making system changes.
+
+---
+
+# Final Architecture
+
+```text
+                    Users
+                      │
+          SMB + Nextcloud Access
+                      │
+                8TB mainpool
+                      │
+          Monthly Recursive Snapshot
+                      │
+                      ▼
+             Monthly Replication
+                      │
+                      ▼
+              2TB backup-pool
+             (Hidden from users)
+                      │
+             Disaster Recovery Only
+```
