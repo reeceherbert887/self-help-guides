@@ -1,6 +1,10 @@
 # TrueNAS Multi-User Storage System - Setup, Configuration and Future Expansion
 
-## Project Overview
+**Author:** Reece Herbert
+**Date:** 07/06/2026
+**Status:** Ready
+
+---
 
 The primary objective of this project was to create a centralised storage solution using TrueNAS that could be accessed by multiple users and devices across a home network. The system was designed around an 8TB external hard drive and provides approximately 1.7TiB of allocated storage to four users.
 

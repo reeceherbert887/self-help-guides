@@ -1,10 +1,13 @@
+# 07-opnsense-installation-&-nitial-setup-guide
 
+**Author:** Reece Herbert
+**Date:** 02/06/2026
+**Status:** Ready
 
-# Objective
-
+---
 The objective of this project was to successfully install OPNsense onto a dedicated firewall machine and gain access to the Web GUI for the first time.
 
-The firewall was not intended to replace the existing router at this stage. Instead, it was deployed behind the existing Eero network to allow testing, learning and validation before future deployment into the homelab.
+The firewall was not intended to replace the existing router at this stage. Instead, it was deployed behind the existing Router network to allow testing, learning and validation before future deployment into the homelab.
 
 ---
 
@@ -23,7 +26,7 @@ The firewall was not intended to replace the existing router at this stage. Inst
 ```text
 Internet
     │
-KCOM / Eero
+ISP / Router
     │
 Existing Home Network
 ```
@@ -49,7 +52,7 @@ igb2
 igb3
 ```
 
-The Intel NIC was confirmed working because OPNsense successfully obtained a DHCP address from the Eero network using:
+The Intel NIC was confirmed working because OPNsense successfully obtained a DHCP address from the Router network using:
 
 ```text
 igb3
@@ -59,7 +62,7 @@ This proved:
 
 * Intel NIC working
 * Network cable working
-* Eero DHCP working
+* Router DHCP working
 * OPNsense networking working
 
 As a result, all motherboard networking was ignored for the remainder of the installation.
@@ -70,10 +73,10 @@ As a result, all motherboard networking was ignored for the remainder of the ins
 
 ## WAN Connection
 
-The WAN interface was connected directly to the Eero router.
+The WAN interface was connected directly to the Router router.
 
 ```text
-Eero Router
+Router Router
     │
     ▼
 Intel NIC Port
@@ -166,7 +169,7 @@ No link aggregation was required.
 
 Auto-detection was used.
 
-The WAN cable connected to the Eero router was unplugged and reconnected.
+The WAN cable connected to the Router router was unplugged and reconnected.
 
 OPNsense detected:
 

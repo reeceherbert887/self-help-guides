@@ -1,6 +1,10 @@
 # Nextcloud Recovery After Main Pool Export
 
-## Overview
+**Author:** Reece Herbert
+**Date:** 23/05/2026
+**Status:** Ready
+
+---
 
 After recovery of the mainpool, Nextcloud initially appeared broken.
 
@@ -62,9 +66,9 @@ sudo ls -1 /mnt/.ix-apps/app_mounts/nextcloud/data
 Returned:
 
 ```text
-beth_collinson
-mandy_collinson
-mell_herbert
+User_Lastname
+User_Lastname
+User_Lastname
 truenas_admin
 ```
 
@@ -132,23 +136,23 @@ Since SMB shares were broken, Nextcloud could not mount them.
 
 # What Worked
 
-✅ Verifying datasets before reinstalling
+Verifying datasets before reinstalling
 
-✅ Confirming database presence
+Confirming database presence
 
-✅ Confirming user folders
+Confirming user folders
 
-✅ Confirming container mappings
+Confirming container mappings
 
 ---
 
 # What Did Not Work
 
-❌ Assuming missing shares meant missing data
+Assuming missing shares meant missing data
 
-❌ Recreating users
+Recreating users
 
-❌ Creating new databases
+Creating new databases
 
 ---
 

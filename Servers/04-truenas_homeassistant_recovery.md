@@ -1,6 +1,8 @@
 # Home Assistant Recovery After Main Pool Export
 
-## Overview
+**Author:** Reece Herbert
+**Date:** 20/06/2026
+**Status:** Operational / Further Expansion Planned
 
 Following a shutdown of the TrueNAS system and temporary removal of the 8TB HDD containing the `mainpool` ZFS pool, Home Assistant failed to start after the pool was reconnected.
 
@@ -192,23 +194,23 @@ Application(s) are currently running
 
 # What Worked
 
-✅ Correcting ix-apps mountpoint
+Correcting ix-apps mountpoint
 
-✅ Mounting datasets manually
+Mounting datasets manually
 
-✅ Verifying datasets before reinstalling
+Verifying datasets before reinstalling
 
-✅ Confirming Docker status
+Confirming Docker status
 
 ---
 
 # What Did NOT Work
 
-❌ Immediate reinstall
+Immediate reinstall
 
-❌ Using Host Path mounts
+Using Host Path mounts
 
-❌ Assuming application data was lost
+Assuming application data was lost
 
 ---
 

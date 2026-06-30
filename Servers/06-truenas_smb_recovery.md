@@ -1,6 +1,10 @@
 # SMB Share Recovery After Main Pool Export
 
-## Overview
+**Author:** Reece Herbert
+**Date:** 23/05/2026
+**Status:** Ready
+
+---
 
 This issue ultimately caused:
 
@@ -44,9 +48,9 @@ TrueNAS believed shares existed:
 
 ```text
 Reece
-Beth
-Mandy
-Mell
+User
+User
+User
 ```
 
 All enabled.
@@ -71,9 +75,9 @@ SMB paths:
 
 ```text
 /mnt/mainpool/Reece
-/mnt/mainpool/Beth
-/mnt/mainpool/Mandy
-/mnt/mainpool/Mell
+/mnt/mainpool/User
+/mnt/mainpool/User
+/mnt/mainpool/User
 ```
 
 were invalid.
@@ -131,9 +135,9 @@ Returned:
 
 ```text
 Reece
-Beth
-Mandy
-Mell
+User
+User
+User
 backups
 ```
 
@@ -143,23 +147,23 @@ All shares restored.
 
 # What Worked
 
-✅ Verifying dataset existence
+Verifying dataset existence
 
-✅ Correcting mountpoints
+Correcting mountpoints
 
-✅ Regenerating SMB shares
+Regenerating SMB shares
 
-✅ Restarting Samba
+Restarting Samba
 
 ---
 
 # What Did Not Work
 
-❌ Assuming share deletion
+Assuming share deletion
 
-❌ Recreating datasets
+Recreating datasets
 
-❌ Reinstalling SMB
+Reinstalling SMB
 
 ---
 
@@ -168,9 +172,9 @@ All shares restored.
 Recovered:
 
 * Reece Share
-* Beth Share
-* Mandy Share
-* Mell Share
+* User Share
+* User Share
+* User Share
 * Nextcloud External Storage Access
 * Linux File Explorer Access
 

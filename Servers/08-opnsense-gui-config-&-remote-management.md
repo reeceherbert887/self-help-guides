@@ -1,12 +1,15 @@
+# 08-opnsense-gui-config-&-remote-management
 
+**Author:** Reece Herbert
+**Date:** 07/06/2026
+**Status:** Ready
 
-## Objective
-
+---
 Following successful installation of OPNsense, the objective was to:
 
 * Complete the setup wizard
 * Configure basic settings
-* Enable remote management from the existing Eero network
+* Enable remote management from the existing Router network
 * Remove the requirement for a direct laptop connection
 
 ---
@@ -22,7 +25,7 @@ LAN (igb2)
 using:
 
 ```text
-https://192.168.1.1
+Your IP
 ```
 
 ---
@@ -49,10 +52,9 @@ Reason:
 The WAN interface receives:
 
 ```text
-192.168.4.56
-```
+Your IP```
 
-from the Eero network.
+from the Router network.
 
 This is an RFC1918 private address and therefore should not be blocked.
 
@@ -63,8 +65,7 @@ This is an RFC1918 private address and therefore should not be blocked.
 Configured as:
 
 ```text
-192.168.1.1/24
-```
+Your IP```
 
 DHCP Server:
 
@@ -109,21 +110,20 @@ Listen Interfaces = All
 This allows the GUI to listen on:
 
 ```text
-192.168.1.1
-192.168.4.56
+Your IP
+Your IP
 ```
 
 ---
 
 # DHCP Reservation
 
-A DHCP reservation was created within the Eero application.
+A DHCP reservation was created within the Router application.
 
 Reserved address:
 
 ```text
-192.168.4.56
-```
+Your IP```
 
 Purpose:
 
@@ -160,8 +160,7 @@ Protocol:
 TCP
 
 Source:
-192.168.4.0/22
-
+Your IP
 Destination:
 WAN Address
 
@@ -172,7 +171,7 @@ HTTPS (443)
 Description:
 
 ```text
-Allow GUI from Eero Network
+Allow GUI from Router Network
 ```
 
 ---
@@ -188,7 +187,7 @@ WAN Access = Blocked
 This prevented desktop systems from accessing:
 
 ```text
-https://192.168.4.56
+Your IP
 ```
 
 After adding the rule:
@@ -199,7 +198,7 @@ Phone
 Laptop
 ```
 
-could all access the GUI from the Eero network.
+could all access the GUI from the Router network.
 
 ---
 
@@ -210,10 +209,10 @@ Firewall logs confirmed traffic was reaching OPNsense.
 Example:
 
 ```text
-192.168.4.57
+Your IP
     │
     ▼
-192.168.4.56
+Your IP
 ```
 
 The firewall was actively processing requests.
@@ -227,20 +226,20 @@ This confirmed the rule was functioning correctly.
 ```text
 Internet
     │
-Eero
+Router
     │
-192.168.4.0/22
+Your IP 
     │
 ┌─────────────────┐
 │ OPNsense        │
-│ WAN 192.168.4.56│
+│ Your IP         │
 └─────────────────┘
 ```
 
 Management Access:
 
 ```text
-https://192.168.4.56
+Your IP
 ```
 
 Available from:
@@ -265,4 +264,4 @@ Successfully created WAN management rule.
 
 Successfully enabled remote GUI access.
 
-Firewall now manageable from anywhere on the Eero network while remaining isolated from the public internet.
+Firewall now manageable from anywhere on the Router network while remaining isolated from the public internet.

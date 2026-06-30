@@ -3,8 +3,8 @@
 ## TrueNAS Scale + Nextcloud + SMB Storage
 
 **Author:** Reece Herbert
-**Date:** 01/06/2026
-**Status:** ✅ Fully Working
+**Date:** 07/06/2026
+**Status:** Ready
 
 ---
 
@@ -44,9 +44,9 @@ Phone / Tablet
 Main Pool
 │
 ├── Reece
-├── Mell
-├── Beth
-├── Mandy
+├── User
+├── User
+├── User
 │
 └── Shared
 ```
@@ -56,9 +56,9 @@ Each user has:
 | User  | TrueNAS Dataset | SMB Share | Nextcloud Account |
 | ----- | --------------- | --------- | ----------------- |
 | Reece | Reece           | Reece     | truenas_admin     |
-| Mell  | Mell            | Mell      | mell_herbert      |
-| Beth  | Beth            | Beth      | beth_collinson    |
-| Mandy | Mandy           | mandy     | mandy_collinson   |
+| User  | User            | User      | User              |
+| User  | User            | User      | User              |
+| User  | User             | User      | User              |
 
 ---
 
@@ -172,7 +172,7 @@ and allowed Nextcloud to rebuild itself.
 
 Result:
 
-✅ Fixed
+Fixed
 
 ---
 
@@ -188,7 +188,7 @@ Settings
 
 Result:
 
-✅ Installed Successfully
+Installed Successfully
 
 ---
 
@@ -198,18 +198,18 @@ Created Local Storage Mounts:
 
 ```text
 / Reece
-/ Mell
-/ Beth
-/ Mandy
+/ User
+/ User
+/ User
 ```
 
 Mapped to:
 
 ```text
 /mnt/mainpool/Reece
-/mnt/mainpool/Mell
-/mnt/mainpool/Beth
-/mnt/mainpool/Mandy
+/mnt/mainpool/User
+/mnt/mainpool/User
+/mnt/mainpool/User
 ```
 
 ---
@@ -260,7 +260,7 @@ Container sees storage.
 
 Result:
 
-✅ Working
+Working
 
 ---
 
@@ -278,14 +278,14 @@ Result:
 
 ```text
 /Reece
-/Mell
-/Beth
-/Mandy
+/User
+/User
+/User
 ```
 
 Result:
 
-✅ Working
+Working
 
 ---
 
@@ -410,13 +410,13 @@ All four external storage mounts were failing with:
 StorageNotAvailableException: Directory listing failed
 ```
 
-This affected all users: `beth_collinson`, `mandy_collinson`, `mell_herbert`, and `truenas_admin`.
+This affected all users: `User_collinson`, `User_collinson`, `User_herbert`, and `truenas_admin`.
 
 The Nextcloud process runs as `www-data` (UID 33), which had no ACL entry on any of the ZFS datasets.
 
 ## The Fix
 
-For each dataset (`Reece`, `Mell`, `Beth`, `Mandy`):
+For each dataset (`Reece`, `User`, `User`, `User`):
 
 1. Open TrueNAS Web UI
 2. Navigate to **Storage → Datasets**
@@ -482,7 +482,7 @@ Result:
        │                  │                  │
        ▼                  ▼                  ▼
 
-    Reece             Mell              Beth
+    Reece             User              User
 
        ▲                  ▲                  ▲
        │                  │                  │

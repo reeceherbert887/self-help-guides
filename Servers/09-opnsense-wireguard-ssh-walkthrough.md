@@ -1,7 +1,10 @@
 # OPNsense WireGuard VPN + SSH Setup Notes
 
-## What this document is
+**Author:** Reece Herbert
+**Date:** 07/06/2026
+**Status:** 🟢 Production Ready
 
+---
 This is the full walkthrough of what I set up, what went wrong, what actually fixed it, and what I need to remember for next time.
 
 This is written in my own style because this setup was an absolute pain and I do not want to go round in circles with it again.
@@ -37,23 +40,23 @@ OPNsense is currently **behind the Eero**, not replacing it yet.
 
 | Device / Interface | IP Address | Notes |
 |---|---:|---|
-| Eero Router | `192.168.4.1` | Current main router / gateway |
-| OPNsense WAN | `192.168.4.56/22` | Connected to Eero network |
-| OPNsense LAN | `192.168.1.1/24` | OPNsense internal LAN side |
+| Eero Router | `Your IP` | Current main router / gateway |
+| OPNsense WAN | `Your IP` | Connected to Eero network |
+| OPNsense LAN | `Your IP` | OPNsense internal LAN side |
 | OPNsense WireGuard | `10.10.10.1/24` | VPN tunnel interface |
 | Phone WireGuard IP | `10.10.10.2/32` | Phone VPN address |
-| Linux Desktop | `192.168.4.57` | On Eero Wi-Fi/network |
+| Linux Desktop | `Your IP` | On Eero Wi-Fi/network |
 
 My desktop was on the Eero network:
 
 ```text
-192.168.4.57
+Your IP
 ```
 
 with default gateway:
 
 ```text
-192.168.4.1
+Your IP
 ```
 
 That means the Eero was still acting as the main router, and OPNsense was sitting behind it.
@@ -110,9 +113,9 @@ Example:
 
 | Device | WireGuard VPN IP |
 |---|---:|
-| Phone | `10.10.10.2/32` |
-| Linux Laptop | `10.10.10.3/32` |
-| Tablet | `10.10.10.4/32` |
+| Phone | `Your IP` |
+| Linux Laptop | `Your IP` |
+| Tablet | `Your IP` |
 
 ---
 
@@ -246,7 +249,7 @@ In the Eero app, the port forward needed to be:
 | Setting | Value |
 |---|---|
 | Device | OPNsense |
-| IP | `192.168.4.56` |
+| IP | `Your IP` |
 | External Port | `51820` |
 | Internal Port | `51820` |
 | Protocol | UDP |
@@ -490,7 +493,7 @@ Then turn on WireGuard on the phone using mobile data.
 Working packet capture showed packets like:
 
 ```text
-82.132.237.94.xxxxx > 192.168.4.56.51820: UDP
+82.132.237.94.xxxxx > Your IP.51820: UDP
 ```
 
 This proved:
